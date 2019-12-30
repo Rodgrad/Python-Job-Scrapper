@@ -1,6 +1,3 @@
-from bs4 import BeautifulSoup as BS
-from selenium.webdriver import Firefox
-from selenium.webdriver.firefox.options import Options
 
 import time
 import requests
@@ -61,9 +58,7 @@ class Scrapp:
 
     def dissection(self, bsoup):
 
-        section = bsoup.find('ol', 
-        attrs={'id':'jobs'}).find_all('div', 
-        attrs={'class':'item_desc'})
+        section = bsoup.find('ol', attrs={'id':'jobs'}).find_all('div', attrs={'class':'item_desc'})
         if section:
             self.save_data(section)
 
@@ -95,20 +90,18 @@ class Scrapp:
             pass
         
         
-        
 
-      
-                
-        
-file = open('poslovi.html', 'a')
-file.truncate(0)
-file.write('<style> h2 a{font-size:20px; color:#6495ED} .item_desc{margin-left:30%;} .ad_tool,.ad_toolbox{display:None;} .list_02{text-align:left;} . </style>')
-file.write('<h1>Bika poslovi</h1><br><br>')
-file.close()
+def run(title=None):
+    file = open('poslovi.html', 'a')
+    file.truncate(0)
+    file.write('<style> h2 a{font-size:20px; color:#6495ED} .item_desc{margin-left:30%;} .ad_tool,.ad_toolbox{display:None;} .list_02{text-align:left;} . </style>')
+    file.write('<h1>Bika poslovi</h1><br><br>')
+    file.close()
+    if title:
+        for i in places:
+            job = Scrapp(url, i, title)
+    
+if '__name__' == '__main__':
+    main = run()
 
-def run(title):
-    for i in places:
-        job = Scrapp(url, i, title)
-    
-    
 
