@@ -1,9 +1,8 @@
-
 import time
 import requests
 import urllib.request
 import webbrowser
-
+from bs4 import BeautifulSoup as BS
 
 # job webpage
 url = "https://www.bika.net/poslovi/inozemstvo/"
@@ -58,7 +57,8 @@ class Scrapp:
 
     def dissection(self, bsoup):
 
-        section = bsoup.find('ol', attrs={'id':'jobs'}).find_all('div', attrs={'class':'item_desc'})
+        section = bsoup.find('ol', 
+        attrs={'id':'jobs'}).find_all('div', attrs={'class':'item_desc'})
         if section:
             self.save_data(section)
 
@@ -89,19 +89,24 @@ class Scrapp:
         except AttributeError:
             pass
         
+class Control(Scrapp):
+    
+    def __init__(self, title='radnik'):
+
+        self.title = title
+
+    def run(self, title):
+        file = open('poslovi.html', 'a')
+        file.truncate(0)
+        file.write('<style> h2 a{font-size:20px; color:#6495ED} .item_desc{margin-left:30%;} .ad_tool,.ad_toolbox{display:None;} .list_02{text-align:left;} . </style>')
+        file.write('<h1>Bika poslovi</h1><br><br>')
+        file.close()
+        print(200)
+        if title:
+            for i in places:
+                Scrapp(url, i, title)
         
 
-def run(title=None):
-    file = open('poslovi.html', 'a')
-    file.truncate(0)
-    file.write('<style> h2 a{font-size:20px; color:#6495ED} .item_desc{margin-left:30%;} .ad_tool,.ad_toolbox{display:None;} .list_02{text-align:left;} . </style>')
-    file.write('<h1>Bika poslovi</h1><br><br>')
-    file.close()
-    if title:
-        for i in places:
-            job = Scrapp(url, i, title)
-    
-if '__name__' == '__main__':
-    main = run()
-
+main = Control()
+main.run('kuhar')
 
