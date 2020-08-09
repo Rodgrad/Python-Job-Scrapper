@@ -37,7 +37,7 @@ class FileManager:
 
 
 
-class WebScrapper(FileManager):
+class WebScrapper:
     
     """Scrape jobs from site without job title filter.
        Traverses thru pagination.
@@ -129,7 +129,7 @@ class IODataHandler(WebScrapper):
 
 
 
-class Control(IODataHandler):
+class Control(IODataHandler, FileManager):
 
     """ Control class, this class is trigger and data provider to other classes and methods."""
     
