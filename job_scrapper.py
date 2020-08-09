@@ -111,14 +111,6 @@ class WebScrapper:
 class IODataHandler(WebScrapper):
 
 
-
-    def __init__(self, url,jobs, places):
-
-        self.url = url
-        self.jobs = jobs
-        self.places = places        
-
-        
     def web_scrapp_jobs_interface_run(self):
 
         for place in self.places:
