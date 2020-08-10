@@ -68,6 +68,7 @@ class WebScrapper:
 
         
     def open_url(self, url):
+        
         if url == None:
             return
         connection = requests.get(url)
