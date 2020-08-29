@@ -147,7 +147,7 @@ class Control(IODataHandler, FileManager):
 
 
 # job webpage
-url = "https://www.bika.net/poslovi/inozemstvo/"
+url = "https://www.SOME_JOBS_WEB_PAGE.net/poslovi/inozemstvo/"
 
 # job locations
 places = ['austrija', 'inozemstvo', 'nizozemska',
