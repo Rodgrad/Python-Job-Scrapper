@@ -1,4 +1,4 @@
-# Small-Job-Scrapper
+# Python-Job-Scrapper
 
 Scrapping international jobs from site that do not suppport job title filtration.
 
