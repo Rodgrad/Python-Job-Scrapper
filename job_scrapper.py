@@ -68,7 +68,7 @@ class WebScrapper:
 
         
     def open_url(self, url):
-        
+
         if url == None:
             return
         connection = requests.get(url)
@@ -93,6 +93,9 @@ class WebScrapper:
             for i in section:
                 for job in self.jobs:
                     if job in str(i):
+                        for e in i.find_all('h2'):
+                            for h in e.find_all('a', href=True):
+                                self.hrefs.append(h['href'])
                         self.data.append(str(i) + "<br><br>")                       # Store persistant valid data to list located in Control class
             self.check_for_pagination()
 
@@ -112,6 +115,14 @@ class WebScrapper:
 class IODataHandler(WebScrapper):
 
 
+
+    def __init__(self, url,jobs, places):
+
+        self.url = url
+        self.jobs = jobs
+        self.places = places        
+
+        
     def web_scrapp_jobs_interface_run(self):
 
         for place in self.places:
@@ -132,18 +143,25 @@ class Control(IODataHandler, FileManager):
         self.jobs = jobs
         self.places = places
         self.visited = list()          # Track visited links, push correct direction on pagination case
-        self.data = list()             # Holds collected data, once all url  data have traversed we will write this
+        self.data = list()
+        self.hrefs = list()            # Holds collected data, once all url  data have traversed we will write this
                                        # list to a file
 
     def run(self):
         if self.jobs and self.places:
             self.initiate_file()
             self.web_scrapp_jobs_interface_run()
+
+            self.data.append("<br><br><br><h1>PURE URLS OF ABOVE JOBS</h1><br><br><br>")
+            for i in self.hrefs:
+                self.data.append(i + "<br>")
             self.save_data(self.data)
+            
             return
         self.initiate_file(True)
             
             
+    
 
 
 # job webpage
